@@ -70,7 +70,10 @@ export default class GroupController {
 		* @type {HTMLElement}
 		*/
 		this.$children = document.createElement( groupTag );
-		this.$children.classList.add( className );
+		this.$children.classList.add( 'group' );
+		if(className != 'group'){
+			this.$children.classList.add( className );
+		}
 
 		/**
 		 * The DOM element that receives the disabled attribute when using disable()
