@@ -10,6 +10,7 @@ import StringController from './StringController';
 
 import stylesheet from 'stylesheet';
 import _injectStyles from './utils/injectStyles';
+import GroupController from './GroupController';
 
 let stylesInjected = false;
 
@@ -281,6 +282,10 @@ export default class GUI {
 		const folder = new GUI( { parent: this, title } );
 		if ( this.root._closeFolders ) folder.close();
 		return folder;
+	}
+
+	addGroup() {
+		return new GroupController( this );
 	}
 
 	/**

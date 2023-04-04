@@ -33,6 +33,14 @@
 		}
 	}
 
+	.controller .group {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+	}
+
 	.controller.string input {
 		color: var(--string-color);
 	}
@@ -89,7 +97,7 @@
 			border-radius: var(--widget-border-radius);
 			height: var(--widget-height);
 			line-height: var(--widget-height);
-			max-width: 100%;
+			width: 100%;
 			overflow: hidden;
 			word-break: break-all;
 			padding-left: 0.55em;
