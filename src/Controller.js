@@ -290,8 +290,17 @@ export default class Controller {
 	 * @returns {Controller}
 	 */
 	options( options ) {
+		var index = this.parent.children.indexOf(this);
+		if(index < 0){
+			return;
+		}
+
 		const controller = this.parent.add( this.object, this.property, options );
 		controller.name( this._name );
+
+		this.parent.$children.removeChild( controller.domElement );
+		this.domElement.before( controller.domElement );
+
 		this.destroy();
 		return controller;
 	}
