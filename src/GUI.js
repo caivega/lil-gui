@@ -11,6 +11,7 @@ import StringController from './StringController';
 import stylesheet from 'stylesheet';
 import _injectStyles from './utils/injectStyles';
 import GroupController from './GroupController';
+import InputController from './InputController';
 
 let stylesInjected = false;
 
@@ -266,6 +267,10 @@ export default class GUI {
 		return new ColorController( this, object, property, rgbScale );
 	}
 
+	addInput( object, property, type, attrs = null ) {
+		return new InputController( this, object, property, type, attrs);
+	}
+
 	/**
 	 * Adds a folder to the GUI, which is just another GUI. This method returns
 	 * the nested GUI so you can add controllers to it.
@@ -286,6 +291,10 @@ export default class GUI {
 
 	addGroup() {
 		return new GroupController( this );
+	}
+
+	addGroupWith(name) {
+		return new GroupController(this, {}, 'group', 'group', "div", name);
 	}
 
 	/**
@@ -409,6 +418,10 @@ export default class GUI {
 	 */
 	close() {
 		return this.open( false );
+	}
+
+	isClosed() {
+		return this._closed;
 	}
 
 	_setClosed( closed ) {

@@ -6,7 +6,7 @@ import StringController from './StringController';
 
 export default class GroupController {
 
-	constructor( parent, object = {}, property = 'group', className = 'group', groupTag = 'div' ) {
+	constructor( parent, object = {}, property = 'group', className = 'group', groupTag = 'div', name = null ) {
 
 		/**
 		 * The GUI that contains this controller.
@@ -64,6 +64,21 @@ export default class GroupController {
 		 */
 		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'controller' );
+
+		if(name){
+			/**
+			 * The DOM element that contains the controller's name.
+			 * @type {HTMLElement}
+			 */
+			this.$name = document.createElement( 'div' );
+			this.$name.classList.add( 'name' );
+
+			Controller.nextNameID = Controller.nextNameID || 0;
+			this.$name.id = `lil-gui-name-${++Controller.nextNameID}`;
+			this.$name.innerHTML = name;
+
+			this.domElement.appendChild( this.$name );
+		}
 
 		/**
 	    * The DOM element that contains children.
