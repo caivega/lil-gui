@@ -294,15 +294,22 @@ export default class Controller {
 		if(index < 0){
 			return;
 		}
-
 		const controller = this.parent.add( this.object, this.property, options );
-		controller.name( this._name );
-
+		this.copyTo(controller);
+		
 		this.parent.$children.removeChild( controller.domElement );
 		this.domElement.before( controller.domElement );
 
 		this.destroy();
+
 		return controller;
+	}
+
+	copyTo(controller) {
+		controller.name( this._name );
+		controller._onChange = this._onChange;
+		controller._onFinishChange = this._onFinishChange;
+		controller.listen(this._listening);
 	}
 
 	/**
