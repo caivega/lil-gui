@@ -144,6 +144,8 @@ export default class GUI {
 
 		this.title( title );
 
+		this._closeFolders = closeFolders;
+
 		if ( touchStyles ) {
 			this.domElement.classList.add( 'allow-touch-styles' );
 		}
@@ -182,8 +184,6 @@ export default class GUI {
 		if ( width ) {
 			this.domElement.style.setProperty( '--width', width + 'px' );
 		}
-
-		this._closeFolders = closeFolders;
 
 		// Don't fire global key events while typing in the GUI:
 		this.domElement.addEventListener( 'keydown', e => e.stopPropagation() );
@@ -284,8 +284,16 @@ export default class GUI {
 	 * @returns {GUI}
 	 */
 	addFolder( title ) {
-		const folder = new GUI( { parent: this, title } );
-		if ( this.root._closeFolders ) folder.close();
+		const folder = new GUI( { parent: this, closeFolders: this._closeFolders, title } );
+		if ( this.root._closeFolders || this._closeFolders ) folder.close();
+		return folder;
+	}
+
+	addFolderWith( title, options ) {
+		options.parent = this;
+		options.title = title;
+		const folder = new GUI( options );
+		if ( this.root._closeFolders || this._closeFolders || folder._closeFolders ) folder.close();
 		return folder;
 	}
 
